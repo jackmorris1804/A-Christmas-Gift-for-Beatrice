@@ -97,7 +97,7 @@ const memories = [
   },
   { 
     x: 1100, 
-    title: "Our Korea Getaway",        
+    title: "Our Korea Adventure",        
     images: [
       { src: "assets/memories/korea.jpg" },
       { src: "assets/memories/korea2.jpg" },
@@ -117,7 +117,7 @@ const memories = [
     x: 1900, 
     title: "Christmas with Nanny",     
     images: [
-      { src: "assets/memories/random.jpg" },
+      { src: "assets/memories/nanny.jpg" },
       { src: "assets/memories/nanny2.jpg" },
       { src: "assets/memories/nanny3.jpg" }
     ],
