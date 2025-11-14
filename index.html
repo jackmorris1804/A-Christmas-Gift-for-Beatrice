@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Our Christmas Forest Journey</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="scene" aria-label="Christmas forest scene"></canvas>
+
+  <!-- UI overlays -->
+  <div id="intro" class="overlay center">
+    <!-- Stage 1: Closed Envelope -->
+    <div id="envelopeContainer" class="envelope-container">
+      <div class="envelope closed">
+        <div class="envelope-back"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal">🎄</div>
+      </div>
+    </div>
+    
+    <!-- Stage 2: Letter (hidden initially) -->
+    <div id="letter" class="letter hidden">
+      <div class="letter-content">
+        <h1>🎄 Our Christmas Journey 🎄</h1>
+        <p style="font-size: 18px; margin: 20px 0; color: #c41e3a;">
+          <strong>For Beatrice — from Jack ❤️</strong>
+        </p>
+        <p style="font-size: 16px; line-height: 1.8; color: #4a5568; margin: 25px 0;">
+          My dearest Beatrice,<br><br>
+          Join me on a magical journey through our most cherished memories.<br>
+          Each stop along the way holds a special moment we've shared together.<br><br>
+          This Christmas, let's walk through our story...<br>
+        </p>
+        <button id="startBtn" class="primary">Let's Go! 🎅</button>
+        <p class="tiny" style="margin-top: 15px; color: #718096;">Tip: switch off iPhone Silent Mode for audio 🎧</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="hud" class="hud hidden" aria-live="polite">
+    <button id="muteBtn" class="chip">Play Music</button>
+  </div>
+
+  <div id="prompt" class="overlay hidden">
+    <div class="card">
+      <h2 id="promptTitle">We've arrived</h2>
+      <p id="promptText">Go inside this gingerbread house to view the memory, or keep walking?</p>
+      <div class="row gap">
+        <button id="viewBtn" class="secondary">View Memory</button>
+        <button id="continueBtn" class="primary">Keep Walking</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="memory" class="overlay hidden">
+    <div class="card">
+      <h2 id="memoryTitle">Memory</h2>
+      <div style="position: relative;">
+        <img id="memoryImg" alt="Memory photo" />
+        <div style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
+          <button id="prevImageBtn" class="chip" style="font-size: 20px; padding: 8px 12px;">←</button>
+        </div>
+        <div style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+          <button id="nextImageBtn" class="chip" style="font-size: 20px; padding: 8px 12px;">→</button>
+        </div>
+      </div>
+      <p id="imageCounter" style="font-size: 14px; color: #888; margin: 5px 0;">1 / 3</p>
+      <button id="closeMemoryBtn" class="primary">Continue</button>
+    </div>
+  </div>
+
+  <div id="flowersPrompt" class="overlay hidden">
+    <div class="card">
+      <h2 style="margin-top:0">🌸 A Tribute to Nanny 🕊️</h2>
+      <p>Would you like to leave these flowers outside<br>in memory of Nanny?</p>
+      <div style="display:flex; gap:12px; margin-top:12px;">
+        <button id="flowersYes" class="btn primary">Leave Flowers</button>
+        <button id="flowersNo" class="btn btn-secondary">Keep Walking</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="presentsPrompt" class="overlay hidden">
+    <div class="card">
+      <h2 style="margin-top:0">Would you like your presents now?</h2>
+      <p>Santa can take you straight to the North Pole 🎅✨</p>
+      <div style="display:flex; gap:12px; margin-top:12px;">
+        <button id="presentsYes" class="btn">Yes, take me there</button>
+        <button id="presentsNo" class="btn btn-secondary">Not yet</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="northPole" class="overlay hidden">
+    <div class="card">
+      <h2>🎅 Welcome to the North Pole! 🎁</h2>
+      <p id="giftMessage">
+        Merry Christmas, Beatrice! 🎄✨<br><br>
+        You'll have to wait to open your presents… but here's a hint:
+        it's something we'll enjoy together. Love, Jack.
+      </p>
+      <button id="restartBtn" class="secondary">Restart Journey</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

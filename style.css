@@ -1,0 +1,232 @@
+:root {
+  --bgTop: #08142c;
+  --bgBot: #07101f;
+  --card: #0f1b29;
+  --text: #ecf6ff;
+  --muted: #b8cbe0;
+  --primary: #e6ff7a;
+  --secondary: #d1e4ff;
+  --accent: #ffd166;
+  --gold: #ffd97b;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; color: var(--text); }
+body { background: linear-gradient(to bottom, var(--bgTop), var(--bgBot)); touch-action: none; }
+
+#scene {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  width: 100svw;
+  height: 100svh;
+  display: block;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)) 16px;
+}
+.overlay.hidden { display: none; }
+.overlay.center { text-align: center; }
+
+.card {
+  width: min(92vw, 460px);
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+  border: 1px solid #1d3147;
+  border-radius: 16px;
+  padding: 18px 16px 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+}
+.tiny { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+h1, h2 { margin: 8px 0 10px; line-height: 1.2; }
+p { margin: 8px 0 14px; color: var(--muted); }
+
+.row { display: flex; align-items: center; }
+.gap { gap: 10px; }
+
+button {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 16px;
+  color: #0b1220;
+}
+button.primary { background: var(--primary); }
+button.secondary { background: var(--secondary); }
+
+img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid #203044; }
+
+.hud {
+  position: fixed;
+  top: max(10px, env(safe-area-inset-top));
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 10001;
+}
+.hud.hidden { display: none; }
+.chip {
+  background: rgba(255,255,255,0.92);
+  color: #172234;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Envelope Opening Animation */
+.envelope-container {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.envelope {
+  position: relative;
+  width: 350px;
+  height: 220px;
+  transition: all 0.5s ease;
+}
+
+.envelope:hover {
+  transform: scale(1.05);
+}
+
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #dc143c 0%, #a01028 100%);
+  border-radius: 10px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+  border: 2px solid #8b0000;
+}
+
+.envelope-flap {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(135deg, #e63946 0%, #c41e3a 100%);
+  border-radius: 10px 10px 0 0;
+  transform-origin: top center;
+  transition: transform 0.8s ease;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  border: 2px solid #8b0000;
+  border-bottom: none;
+  z-index: 10;
+}
+
+.envelope.closed .envelope-flap {
+  transform: rotateX(0deg);
+}
+
+.envelope.opening .envelope-flap {
+  transform: rotateX(-180deg);
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.6);
+  border: 4px solid #b8860b;
+  z-index: 20;
+  transition: all 0.8s ease;
+}
+
+.envelope.opening .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Letter that appears after envelope opens */
+.letter {
+  position: relative;
+  width: min(90vw, 500px);
+  max-height: 85vh;
+  overflow-y: auto;
+  opacity: 0;
+  transform: scale(0.8) translateY(50px);
+  transition: all 0.8s ease;
+}
+
+.letter.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.letter-content {
+  background: linear-gradient(135deg, #fffef9 0%, #f5f5f0 100%);
+  border-radius: 15px;
+  padding: 40px 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border: 3px solid #d4af37;
+  position: relative;
+}
+
+/* Decorative corners on letter */
+.letter-content::before,
+.letter-content::after {
+  content: '❄️';
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.3;
+}
+
+.letter-content::before {
+  top: 15px;
+  left: 15px;
+}
+
+.letter-content::after {
+  bottom: 15px;
+  right: 15px;
+}
+
+.letter-content h1 {
+  color: #1a5f3f;
+  font-size: 28px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.letter-content p {
+  color: #4a5568;
+  text-align: center;
+}
+
+.letter-content button {
+  margin: 20px auto 0;
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 15px 40px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.letter-content button:hover {
+  transform: scale(1.05);
+}
+
+.letter-content .tiny {
+  text-align: center;
+  display: block;
+}
